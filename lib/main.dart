@@ -27,9 +27,17 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
-  final List<String> imageUrls = [
-    "assets/images/anglet_campus.jpg",
-    "assets/images/pau_campus.jpg"
+
+  final List<Color> swipeColors = [
+    Colors.red,
+    Colors.green,
+    Colors.blue,
+  ];
+
+  final List<Map<String, String>> imageUrls = [
+    {"url": "assets/images/anglet_campus.jpg", "name": "Anglet"},
+    {"url": "assets/images/pau_campus.jpg", "name": "Pau"},
+    {"url": "assets/images/mdm_campus.jpg", "name": "Pau"}
   ];
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -67,7 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           const Spacer(),
           Center(
-            child: CampusPicker(imageUrls: widget.imageUrls),
+            child: CampusPicker(
+              imageUrls: widget.imageUrls,
+            ),
           ),
           const Spacer(
             flex: 2,

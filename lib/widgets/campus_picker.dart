@@ -3,7 +3,7 @@ import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:prog_mobile/widgets/liquid_swipe_container.dart';
 
 class CampusPicker extends StatelessWidget {
-  final List<String>? imageUrls;
+  final List<Map<String, String>>? imageUrls;
 
   const CampusPicker({Key? key, @required this.imageUrls}) : super(key: key);
 
@@ -22,10 +22,10 @@ class CampusPicker extends StatelessWidget {
             pages: imageUrls!
                 .map(
                   (e) => LiquidSwipeContainer(
-                    child: Image.asset(
-                      e,
-                    ),
-                  ),
+                      child: Image.asset(
+                        e["url"]!,
+                      ),
+                      name: e["name"]),
                 )
                 .toList(),
           ),

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class LiquidSwipeContainer extends StatelessWidget {
   final Widget? child;
-  const LiquidSwipeContainer({Key? key, @required this.child})
+  final String? name;
+  const LiquidSwipeContainer({Key? key, @required this.child, this.name})
       : super(key: key);
 
   @override
