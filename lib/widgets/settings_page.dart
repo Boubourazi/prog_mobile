@@ -37,22 +37,23 @@ class _SettingsPageState extends State<SettingsPage> {
           if (snapshot.connectionState == ConnectionState.waiting && !loaded) {
             return const Center(child: CircularProgressIndicator());
           }
+          var velo = _prefs?.getBool("velo") ?? true;
           return ListView(
             children: <Widget>[
               SwitchListTile(
-                  secondary: const Icon(
-                    Icons.pedal_bike,
+                  secondary: Icon(
+                    velo ? Icons.pedal_bike : Icons.directions_walk_outlined,
                     size: 45,
                   ),
-                  title: const Text(
-                    "Vélo",
-                    style: TextStyle(fontSize: 20),
+                  title: Text(
+                    velo ? "Vélo" : "Piéton",
+                    style: const TextStyle(fontSize: 20),
                   ),
                   value: _prefs?.getBool("velo") ?? true,
                   onChanged: (value) {
                     _prefs!.setBool("velo", value);
                     setState(() {});
-                  })
+                  }),
             ],
           );
         },

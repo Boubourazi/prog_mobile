@@ -9,21 +9,27 @@ class CampusPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: LiquidSwipe(
-        enableSideReveal: true,
-        waveType: WaveType.circularReveal,
-        slideIconWidget: const Icon(Icons.arrow_back_ios_new),
-        pages: imageUrls!
-            .map(
-              (e) => LiquidSwipeContainer(
-                child: Image.asset(
-                  e,
-                ),
-              ),
-            )
-            .toList(),
+    return Padding(
+      padding: EdgeInsets.all(MediaQuery.of(context).size.width / 20),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: SizedBox(
+          height: 200,
+          child: LiquidSwipe(
+            enableSideReveal: true,
+            waveType: WaveType.liquidReveal,
+            slideIconWidget: const Icon(Icons.arrow_back_ios_new),
+            pages: imageUrls!
+                .map(
+                  (e) => LiquidSwipeContainer(
+                    child: Image.asset(
+                      e,
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
       ),
     );
   }
