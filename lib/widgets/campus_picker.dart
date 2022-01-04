@@ -10,12 +10,13 @@ class CampusPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(MediaQuery.of(context).size.width / 20),
+      padding: EdgeInsets.all(MediaQuery.of(context).size.width / 30),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: SizedBox(
-          height: 200,
+          height: 300,
           child: LiquidSwipe(
+            positionSlideIcon: 0.82,
             enableSideReveal: true,
             waveType: WaveType.liquidReveal,
             slideIconWidget: const Icon(Icons.arrow_back_ios_new),
