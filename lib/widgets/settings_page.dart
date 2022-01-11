@@ -41,9 +41,19 @@ class _SettingsPageState extends State<SettingsPage> {
           return ListView(
             children: <Widget>[
               SwitchListTile(
-                  secondary: Icon(
-                    velo ? Icons.pedal_bike : Icons.directions_walk_outlined,
-                    size: 45,
+                  secondary: AnimatedCrossFade(
+                    crossFadeState: velo
+                        ? CrossFadeState.showSecond
+                        : CrossFadeState.showFirst,
+                    duration: const Duration(milliseconds: 300),
+                    firstChild: const Icon(
+                      Icons.directions_walk,
+                      size: 45,
+                    ),
+                    secondChild: const Icon(
+                      Icons.pedal_bike,
+                      size: 45,
+                    ),
                   ),
                   title: Text(
                     velo ? "Vélo" : "Piéton",
@@ -52,6 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   value: _prefs?.getBool("velo") ?? true,
                   onChanged: (value) {
                     _prefs!.setBool("velo", value);
+                    print("toto");
                     setState(() {});
                   }),
             ],

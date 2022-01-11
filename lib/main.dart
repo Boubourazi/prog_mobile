@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:prog_mobile/widgets/campus_picker.dart';
 import 'package:prog_mobile/widgets/settings_page.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:prog_mobile/logic/store.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    VxState(
+      store: GlobalStore(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +47,7 @@ class MyHomePage extends StatefulWidget {
   final List<Map<String, String>> imageUrls = [
     {"url": "assets/images/anglet_campus.jpg", "name": "Anglet"},
     {"url": "assets/images/pau_campus.jpg", "name": "Pau"},
-    {"url": "assets/images/mdm_campus.jpg", "name": "Pau"}
+    {"url": "assets/images/mdm_campus.jpg", "name": "Mont de Marsan"}
   ];
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -46,6 +56,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    VxState.watch(context, on: [ChangeCurrentCampus]);
+
+    GlobalStore store = VxState.store;
+
     return Scaffold(
       appBar: AppBar(
         actionsIconTheme: Theme.of(context).appBarTheme.actionsIconTheme,
@@ -54,7 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
         toolbarHeight: MediaQuery.of(context).size.height / 7,
         title: Text(
           widget.title,
-          style: const TextStyle(color: Colors.black),
+          style: GoogleFonts.roboto(
+            color: Colors.black,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         actions: [
           IconButton(
@@ -71,18 +89,30 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          const Spacer(),
-          Center(
-            child: CampusPicker(
-              imageUrls: widget.imageUrls,
+      body: Padding(
+        padding: EdgeInsets.all(MediaQuery.of(context).size.width / 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              store.campus[store.currentCampus],
+              style: GoogleFonts.roboto(fontSize: 25),
             ),
-          ),
-          const Spacer(
-            flex: 2,
-          ),
-        ],
+            const Spacer(),
+            Center(
+              child: Material(
+                borderRadius: BorderRadius.circular(16),
+                elevation: 10,
+                child: CampusPicker(
+                  imageUrls: widget.imageUrls,
+                ),
+              ),
+            ),
+            const Spacer(
+              flex: 10,
+            ),
+          ],
+        ),
       ),
     );
   }

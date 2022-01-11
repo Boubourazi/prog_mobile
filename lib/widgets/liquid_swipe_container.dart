@@ -13,7 +13,7 @@ class LiquidSwipeContainer extends StatelessWidget {
       height: 300,
       child: FittedBox(
         fit: BoxFit.cover,
-        child: child,
+        child: child!,
       ),
     );
   }
