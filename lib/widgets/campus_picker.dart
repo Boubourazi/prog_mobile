@@ -25,10 +25,9 @@ class _CampusPickerState extends State<CampusPicker> {
         child: LiquidSwipe(
           initialPage: store.currentCampus,
           onPageChangeCallback: (page) => ChangeCurrentCampus(page),
-          liquidController: LiquidController(),
           positionSlideIcon: 0.82,
           enableSideReveal: true,
-          waveType: WaveType.liquidReveal,
+          waveType: WaveType.circularReveal,
           slideIconWidget: const Icon(Icons.arrow_back_ios_new),
           pages: widget.imageUrls!
               .map(

@@ -62,7 +62,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   value: _prefs?.getBool("velo") ?? true,
                   onChanged: (value) {
                     _prefs!.setBool("velo", value);
-                    print("toto");
                     setState(() {});
                   }),
             ],

@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
         actionsIconTheme: Theme.of(context).appBarTheme.actionsIconTheme,
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        toolbarHeight: MediaQuery.of(context).size.height / 7,
+        toolbarHeight: MediaQuery.of(context).size.height / 8,
         title: Text(
           widget.title,
           style: GoogleFonts.roboto(
@@ -94,9 +94,15 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              store.campus[store.currentCampus],
-              style: GoogleFonts.roboto(fontSize: 25),
+            DefaultTextStyle(
+              style: GoogleFonts.roboto(color: Colors.black, fontSize: 20),
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 200),
+                child: Text(
+                  store.campus[store.currentCampus],
+                  key: ValueKey<int>(store.currentCampus),
+                ),
+              ),
             ),
             const Spacer(),
             Center(
