@@ -14,6 +14,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future<void> _initPrefs() async {
     _prefs = await SharedPreferences.getInstance();
+    if (_prefs?.getBool("velo") == null) {
+      _prefs!.setBool("velo", false);
+    }
+    if (_prefs?.getBool("geolocation") == null) {
+      _prefs!.setBool("geolocation", false);
+    }
   }
 
   @override
@@ -64,6 +70,21 @@ class _SettingsPageState extends State<SettingsPage> {
                     _prefs!.setBool("velo", value);
                     setState(() {});
                   }),
+              SwitchListTile(
+                value: _prefs?.getBool("geolocation") ?? true,
+                onChanged: (value) {
+                  _prefs!.setBool("geolocation", value);
+                  setState(() {});
+                },
+                title: const Text(
+                  "Géolocalisation",
+                  style: TextStyle(fontSize: 20),
+                ),
+                secondary: const Icon(
+                  Icons.location_on,
+                  size: 45,
+                ),
+              )
             ],
           );
         },

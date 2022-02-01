@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:prog_mobile/logic/store.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:prog_mobile/logic/csv_parser.dart';
 
 void main() {
   runApp(
@@ -38,28 +39,32 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-  final List<Color> swipeColors = [
-    Colors.red,
-    Colors.green,
-    Colors.blue,
-  ];
-
   final List<Map<String, String>> imageUrls = [
     {"url": "assets/images/anglet_campus.jpg", "name": "Anglet"},
     {"url": "assets/images/pau_campus.jpg", "name": "Pau"},
-    {"url": "assets/images/mdm_campus.jpg", "name": "Mont de Marsan"}
+    {"url": "assets/images/mdm_campus.jpg", "name": "Mont de Marsan"},
+    {"url": "assets/images/bayonne_campus.jpg", "name": "Bayonne"}
   ];
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final CsvParser parser = CsvParser("assets/data/exportbatimentsUPPA.csv");
+
+  List<List<dynamic>>? data;
+
+  @override
+  void initState() {
+    super.initState();
+    parser.initParsed();
+  }
+
   @override
   Widget build(BuildContext context) {
     VxState.watch(context, on: [ChangeCurrentCampus]);
 
     GlobalStore store = VxState.store;
-
     return Scaffold(
       appBar: AppBar(
         actionsIconTheme: Theme.of(context).appBarTheme.actionsIconTheme,

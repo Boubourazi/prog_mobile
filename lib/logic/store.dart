@@ -2,7 +2,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 //Store
 class GlobalStore extends VxStore {
-  List<String> campus = ["Anglet", "Pau", "Mont de Marsan"];
+  List<String> campus = ["Anglet", "Pau", "Mont de Marsan", "Bayonne"];
   int currentCampus = 0;
 }
 
