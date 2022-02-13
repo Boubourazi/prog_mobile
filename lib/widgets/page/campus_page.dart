@@ -4,6 +4,7 @@ import 'package:prog_mobile/logic/csv_parser.dart';
 import 'dart:convert' show utf8;
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:android_intent_plus/flag.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CampusPage extends StatelessWidget {
   final Map<String, String>? imageInfo;
@@ -44,18 +45,20 @@ class CampusPage extends StatelessWidget {
                         subtitle: Text(parser!.siteByCampus[
                                 imageInfo!["name"]!.toUpperCase()]![index]["id"]
                             .toString()),
-                        leading: (parser!.siteByCampus[imageInfo!["name"]!
-                                        .toUpperCase()]![index]["lat"] !=
-                                    null &&
+                        trailing: (parser!.siteByCampus[imageInfo!["name"]!
+                                        .toUpperCase()]![index]["lat"]
+                                    .toString()
+                                    .isNotEmpty &&
                                 parser!.siteByCampus[imageInfo!["name"]!
-                                        .toUpperCase()]![index]["long"] !=
-                                    null)
-                            ? const Icon(Icons.directions_walk_outlined)
+                                        .toUpperCase()]![index]["long"]
+                                    .toString()
+                                    .isNotEmpty)
+                            ? const Icon(Icons.arrow_right)
                             : null,
                         onTap: () async {
-                          AndroidIntent intent = const AndroidIntent(
+                          AndroidIntent intent = AndroidIntent(
                             data:
-                                "google.navigation:q=37.7749,-122.4194&mode=w",
+                                "google.navigation:q=${parser!.siteByCampus[imageInfo!["name"]!.toUpperCase()]![index]["long"].toString()},${parser!.siteByCampus[imageInfo!["name"]!.toUpperCase()]![index]["lat"].toString()}&mode=b",
                             package: "com.google.android.apps.maps",
                             action: 'action_view',
                           );
