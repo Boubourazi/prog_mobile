@@ -41,6 +41,5 @@ class CsvParser {
 
   Future<void> initParsed() async {
     _parsed = await _parse();
-    print(siteByCampus["PAU"]);
   }
 }

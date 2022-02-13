@@ -8,12 +8,15 @@ class LiquidSwipeContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 300,
-      child: FittedBox(
-        fit: BoxFit.cover,
-        child: child!,
+    return Hero(
+      tag: name!,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: 300,
+        child: FittedBox(
+          fit: BoxFit.cover,
+          child: child!,
+        ),
       ),
     );
   }

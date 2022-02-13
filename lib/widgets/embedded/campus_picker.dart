@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:prog_mobile/widgets/liquid_swipe_container.dart';
+import 'package:prog_mobile/widgets/embedded/liquid_swipe_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:prog_mobile/logic/store.dart';

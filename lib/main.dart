@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prog_mobile/widgets/campus_picker.dart';
-import 'package:prog_mobile/widgets/settings_page.dart';
+import 'package:prog_mobile/widgets/embedded/campus_picker.dart';
+import 'package:prog_mobile/widgets/page/campus_page.dart';
+import 'package:prog_mobile/widgets/page/settings_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-            actionsIconTheme: IconThemeData(color: Colors.grey)),
+          actionsIconTheme: IconThemeData(color: Colors.grey),
+        ),
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'UPPA Maps'),
@@ -111,11 +113,23 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const Spacer(),
             Center(
-              child: Material(
-                borderRadius: BorderRadius.circular(16),
-                elevation: 10,
-                child: CampusPicker(
-                  imageUrls: widget.imageUrls,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) {
+                      return CampusPage(
+                        imageInfo: widget.imageUrls[store.currentCampus],
+                        parser: parser,
+                      );
+                    },
+                  ));
+                },
+                child: Material(
+                  borderRadius: BorderRadius.circular(16),
+                  elevation: 10,
+                  child: CampusPicker(
+                    imageUrls: widget.imageUrls,
+                  ),
                 ),
               ),
             ),
