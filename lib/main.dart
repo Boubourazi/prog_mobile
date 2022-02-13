@@ -69,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
     GlobalStore store = VxState.store;
     return Scaffold(
       appBar: AppBar(
+        leading: Image.asset("assets/icon/1024.png"),
         actionsIconTheme: Theme.of(context).appBarTheme.actionsIconTheme,
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

@@ -41,27 +41,40 @@ class CampusPage extends StatelessWidget {
                         .siteByCampus[imageInfo!["name"]!.toUpperCase()]!
                         .length,
                     itemBuilder: (context, index) {
+                      bool geoIsDefine = parser!.siteByCampus[
+                                  imageInfo!["name"]!.toUpperCase()]![index]
+                                  ["lat"]
+                              .toString()
+                              .isNotEmpty &&
+                          parser!.siteByCampus[imageInfo!["name"]!
+                                  .toUpperCase()]![index]["long"]
+                              .toString()
+                              .isNotEmpty;
                       return ListTile(
                         subtitle: Text(parser!.siteByCampus[
                                 imageInfo!["name"]!.toUpperCase()]![index]["id"]
                             .toString()),
-                        trailing: (parser!.siteByCampus[imageInfo!["name"]!
-                                        .toUpperCase()]![index]["lat"]
-                                    .toString()
-                                    .isNotEmpty &&
-                                parser!.siteByCampus[imageInfo!["name"]!
-                                        .toUpperCase()]![index]["long"]
-                                    .toString()
-                                    .isNotEmpty)
-                            ? const Icon(Icons.arrow_right)
-                            : null,
+                        trailing: geoIsDefine ? const Icon(Icons.check) : null,
                         onTap: () async {
-                          AndroidIntent intent = AndroidIntent(
+                          SharedPreferences pref =
+                              await SharedPreferences.getInstance();
+                          bool velo = pref.getBool("velo") ?? false;
+                          AndroidIntent intentAddr = AndroidIntent(
                             data:
-                                "google.navigation:q=${parser!.siteByCampus[imageInfo!["name"]!.toUpperCase()]![index]["long"].toString()},${parser!.siteByCampus[imageInfo!["name"]!.toUpperCase()]![index]["lat"].toString()}&mode=b",
+                                "google.navigation:q=${parser!.siteByCampus[imageInfo!["name"]!.toUpperCase()]![index]["addr2"]} ${parser!.siteByCampus[imageInfo!["name"]!.toUpperCase()]![index]["city"]}",
                             package: "com.google.android.apps.maps",
                             action: 'action_view',
                           );
+                          AndroidIntent intent = AndroidIntent(
+                            data:
+                                "google.navigation:q=${parser!.siteByCampus[imageInfo!["name"]!.toUpperCase()]![index]["long"].toString()},${parser!.siteByCampus[imageInfo!["name"]!.toUpperCase()]![index]["lat"].toString()}&mode=${velo ? 'b' : 'w'}",
+                            package: "com.google.android.apps.maps",
+                            action: 'action_view',
+                          );
+                          if (!geoIsDefine) {
+                            await intentAddr.launch();
+                            return;
+                          }
                           await intent.launch();
                         },
                         title: Text(
